@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#801aad',
+    },
+  },
+});
 
 class AddTodo extends Component {
   // Create a local react state of the this component with a content property set to nothing.
@@ -7,7 +15,9 @@ class AddTodo extends Component {
     super();
     this.state = {
       content: "",
+      date: "",
     };
+    
   }
   // The handleChange function updates the react state with the new input value provided from the user.
   // "event" is the defined action a user takes. In this case, the event is triggered when the user types something
@@ -15,7 +25,9 @@ class AddTodo extends Component {
   handleChange = (event) => {
     this.setState({
       content: event.target.value,
+      date: Date().toLocaleString('en-US'),
     });
+    
   };
   // The handleSubmit function collects the forms input and puts it into the react state.
   // event.preventDefault() is called to prevents default event behavior like refreshing the browser.
@@ -46,14 +58,16 @@ class AddTodo extends Component {
           onChange={this.handleChange}
           value={this.state.content}
         />
-        <Button
-          style={{ marginLeft: "10px" }}
-          onClick={this.handleSubmit}
-          variant="contained"
-          color="primary"
-        >
-          Add
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button
+            style={{ marginLeft: "10px" }}
+            onClick={this.handleSubmit}
+            variant="contained"
+            color="primary"
+          >
+            Add
+          </Button>
+        </ThemeProvider>
       </div>
     );
   }
